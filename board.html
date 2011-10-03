@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="initial-scale=1.0,user-scalable=no">
+  <title>Magic Helper</title>
+  <link rel="stylesheet" href="css/portrait.css" />
+  <link rel="stylesheet" href="css/landscape.css" />
+</head>
+<body>
+  <div id="canvas">
+
+    <div id="header">
+      <h1>Magic Helper</h1>
+    </div>
+
+    <div id="menu">
+      <ul>
+        <li><a id="new-game">New Game</a></li>
+        <li><a id="resume-game">Resume Game</a></li>
+        <li><a id="settings">Settings</a></li>
+      </ul>
+    </div>
+
+    <div id="game-board"></div>
+    
+    <div id="players">
+      <button type="submit" class="back-to-menu">Back</button>
+
+      <form action="" method="get">
+        <fieldset>
+          <legend>Players</legend>
+          <label for="player-1">Player 1</label>
+          <input type="text" name="player_one" id="player-1-name" value="Player 1"required />
+          <label for="player-2">Player 2</label>
+          <input type="text" name="player_two" id="player-2-name" value="Player 2"required />
+        </fieldset>
+
+        <input type="submit" id="play" name="submit" value="Play" />
+      </form>
+    </div>
+  </div>
+  <script src="application/magic_helper.js"></script>
+  <script src="application/application.js"></script>
+  <script>
+    var game,
+        new_game = $('#new-game'),
+        menu = $('#menu'),
+        players = $('#players'),
+        back_to_menu = $('.back-to-menu'),
+        game_board = $('#game-board'),
+        play = $('#play'),
+        resume = $('#resume-game'),
+        settings = $('#settings'),
+        player_one_name = $('#player-1-name'),
+        player_two_name = $('#player-2-name'),
+        player_one,
+        player_two;
+
+    new_game.click(function() {
+      menu.hide();
+      players.show();
+    });
+
+    back_to_menu.click(function() {
+      players.hide();
+      menu.show();
+    });
+
+    $('form').submit(function(e) {
+      e.preventDefault();
+
+      game = new Game([new Player(player_one_name.val()), new Player(player_two_name.val())]);
+
+      players.hide();
+      game_board.show();
+      setup_board(game);
+      activate_game();
+    });
+
+    function setup_board(game) {
+      game.players.each(function(player, n) {
+        var active = (game.get_active_player() === player) ? ' active' : '';
+        game_board.append([
+          '<div class="player' + active + '" id="player-' + (n + 1) + '">',
+          '<div class="name">' + player.name + '</div>',
+          '<div class="life-display">Life: <span class="life">' + player.life + '</span></div>',
+          '<div class="mana-display">Mana: <span class="mana">' + player.mana + '</span></div>',
+          '<div class="poision-display">Poision: <span class="poision">' + player.poision + '</span></div>',
+          '<div class="player-controls">',
+          '<div class="life-controls">',
+          '<button type="submit" class="decrement-life">-</button>',
+          '<button type="submit" class="increment-life">+</button>',
+          '</div>',
+          '<div class="poision-controls">',
+          '<button type="submit" class="decrement-poision">-</button>',
+          '<button type="submit" class="increment-poision">+</button>',
+          '</div>',
+          '<div class="mana-controls">',
+          '<button type="submit" class="decrement-mana">-</button>',
+          '<button type="submit" class="increment-mana">+</button>',
+          '</div>',
+          '</div>',
+          '</div>'
+        ].join(''));
+      });
+
+      player_one = $('#player-1');
+      player_two = $('#player-2');
+    }
+
+    function activate_game() {
+      $('.increment-life').click(function() {
+        increment_life(get_player_id(this));
+      });
+
+      $('.decrement-life').click(function() {
+        decrement_life(get_player_id(this));
+      });
+
+      $('.increment-poision').click(function() {
+        increment_poision(get_player_id(this));
+      });
+
+      $('.decrement-poision').click(function() {
+        decrement_poision(get_player_id(this));
+      });
+
+      $('.increment-mana').click(function() {
+        increment_mana(get_player_id(this));
+      });
+
+      $('.decrement-mana').click(function() {
+        decrement_mana(get_player_id(this));
+      });
+    }
+
+    function increment_life(player_id) {
+      game.players[player_id].increment_life();
+      update_life.call(game.players[player_id], player_id + 1);
+    }
+
+    function decrement_life(player_id) {
+      game.players[player_id].decrement_life();
+      update_life.call(game.players[player_id], player_id + 1);
+    }
+    
+    function increment_poision(player_id) {
+      game.players[player_id].increment_poision();
+      update_poision.call(game.players[player_id], player_id + 1);
+      update_life.call(game.players[player_id], player_id + 1);
+    }
+
+    function decrement_poision(player_id) {
+      game.players[player_id].decrement_poision();
+      update_poision.call(game.players[player_id], player_id + 1);
+    }
+    
+    function increment_mana(player_id) {
+      game.players[player_id].increment_mana();
+      update_mana.call(game.players[player_id], player_id + 1);
+    }
+
+    function decrement_mana(player_id) {
+      game.players[player_id].decrement_mana();
+      update_mana.call(game.players[player_id], player_id + 1);
+    }
+
+    function update_life(player) {
+      player = $('#player-' + player);
+      player.find('.life').html(this.life);
+      if (this.life < 1) {
+        player.addClass('dead');
+      }
+    }
+
+    function update_poision(player) {
+      $('#player-' + player).find('.poision').html(this.poision);
+    }
+
+    function update_mana(player) {
+      $('#player-' + player).find('.mana').html(this.mana);
+    }
+
+    function get_player_id(player) {
+      return $(player).parents('.player').attr('id').replace(/player\-/, '').to_n() - 1
+    };
+  </script>
+</body>
+</html>

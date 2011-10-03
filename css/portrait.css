@@ -1,0 +1,48 @@
+/* line 1, ../scss/_layout-template.scss */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 6, ../scss/_layout-template.scss */
+a {
+  cursor: pointer;
+}
+
+/* line 10, ../scss/_layout-template.scss */
+#canvas {
+  width: 768px;
+  height: 1024px;
+  background: red;
+}
+
+/* line 16, ../scss/_layout-template.scss */
+#players {
+  display: none;
+}
+
+/* line 20, ../scss/_layout-template.scss */
+#game-board {
+  display: none;
+}
+
+/* line 25, ../scss/_layout-template.scss */
+.increment-poision,
+.decrement-poision {
+  background-color: green;
+}
+
+/* line 30, ../scss/_layout-template.scss */
+.increment-mana,
+.decrement-mana {
+  background-color: #8D5306;
+}
+
+/* line 35, ../scss/_layout-template.scss */
+.player.active {
+  background-color: #DBE0E7;
+}
+/* line 39, ../scss/_layout-template.scss */
+.player.dead {
+  background-color: #FF0000;
+}

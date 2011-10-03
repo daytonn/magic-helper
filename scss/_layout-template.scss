@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  cursor: pointer;
+}
+
+#canvas {
+  width: $width;
+  height: $height;
+  background: $background-color;
+}
+
+#players {
+  display: none;
+}
+
+#game-board {
+  display: none;
+}
+
+.increment-poision,
+.decrement-poision {
+  background-color: green;
+}
+
+.increment-mana,
+.decrement-mana {
+  background-color: #8D5306;
+}
+
+.player {
+  &.active {
+    background-color: #DBE0E7;
+  }
+
+  &.dead {
+    background-color: #FF0000;
+  }
+}
