@@ -31,7 +31,8 @@ a {
 }
 
 .increment-mana,
-.decrement-mana {
+.decrement-mana,
+.tap-mana {
   background-color: #E5E5E5;
 
   &.red {
@@ -57,11 +58,20 @@ a {
 }
 
 .player {
+  .end-turn {
+    display: none;
+  }
+
   &.active {
     background-color: #DBE0E7;
+
+    .end-turn {
+      display: block;
+    }
   }
 
   &.dead {
     background-color: #FF0000;
   }
+
 }

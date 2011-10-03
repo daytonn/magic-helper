@@ -158,8 +158,10 @@
           '<button type="submit" class="generic decrement-mana">-</button>',
           '<button type="submit" class="generic tap-mana">tap</button>',
           '<button type="submit" class="generic increment-mana">+</button>',
+          '<button type="submit" class="reset-mana">reset mana</button>',
           '</div>',
           '</div>',
+          '<button type="submit" class="end-turn">End Turn</button>',
           '</div>'
         ].join(''));
       });
@@ -194,6 +196,15 @@
         var color = get_mana_color(this);
         decrement_mana(get_player_id(this), color);
       });
+
+      $('.tap-mana').click(function() {
+        var color = get_mana_color(this);
+        tap_mana(get_player_number(this), color);
+      });
+
+      $('.reset-mana').click(function() {
+        reset_mana(get_player_id(this));
+      });
     }
 
     function increment_life(player_id) {
@@ -227,6 +238,17 @@
       update_mana.call(game.players[player_id], player_id + 1, color);
     }
 
+    function reset_mana(player_id) {
+      var player = $('#player-' + (player_id + 1));
+      player.find('.total-mana').html(game.players[player_id].total_mana());
+      player.find('.red-mana').html(game.players[player_id].red_mana);
+      player.find('.green-mana').html(game.players[player_id].green_mana);
+      player.find('.blue-mana').html(game.players[player_id].blue_mana);
+      player.find('.white-mana').html(game.players[player_id].white_mana);
+      player.find('.black-mana').html(game.players[player_id].black_mana);
+      player.find('.generic-mana').html(game.players[player_id].generic_mana);
+    }
+
     function update_life(player) {
       player = $('#player-' + player);
       player.find('.life').html(this.life);
@@ -244,8 +266,20 @@
       $('#player-' + player).find('.total-mana').html(this.total_mana());
     }
 
+    function tap_mana(player, color) {
+      console.log($('#player-' + player).find('.' + color + '-mana'));
+      var current_mana = $('#player-' + player).find('.' + color + '-mana').html().to_n();
+      var current_total_mana = $('#player-' + player).find('.total-mana').html().to_n();
+      $('#player-' + player).find('.' + color + '-mana').html(current_mana - 1);
+      $('#player-' + player).find('.total-mana').html(current_total_mana - 1);
+    }
+
     function get_player_id(player) {
-      return $(player).parents('.player').attr('id').replace(/player\-/, '').to_n() - 1;
+      return (get_player_number(player) - 1);
+    }
+
+    function get_player_number(player) {
+      return $(player).parents('.player').attr('id').replace(/player\-/, '').to_n()
     }
 
     function get_mana_color(mana_button) {

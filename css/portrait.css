@@ -37,43 +37,57 @@ a {
   background-color: green;
 }
 
-/* line 34, ../scss/_layout-template.scss */
+/* line 35, ../scss/_layout-template.scss */
 .increment-mana,
-.decrement-mana {
+.decrement-mana,
+.tap-mana {
   background-color: #E5E5E5;
 }
-/* line 37, ../scss/_layout-template.scss */
+/* line 38, ../scss/_layout-template.scss */
 .increment-mana.red,
-.decrement-mana.red {
+.decrement-mana.red,
+.tap-mana.red {
   background: red;
 }
-/* line 41, ../scss/_layout-template.scss */
+/* line 42, ../scss/_layout-template.scss */
 .increment-mana.green,
-.decrement-mana.green {
+.decrement-mana.green,
+.tap-mana.green {
   background: green;
 }
-/* line 45, ../scss/_layout-template.scss */
+/* line 46, ../scss/_layout-template.scss */
 .increment-mana.blue,
-.decrement-mana.blue {
+.decrement-mana.blue,
+.tap-mana.blue {
   background: blue;
 }
-/* line 49, ../scss/_layout-template.scss */
+/* line 50, ../scss/_layout-template.scss */
 .increment-mana.black,
-.decrement-mana.black {
+.decrement-mana.black,
+.tap-mana.black {
   background: black;
   color: white;
 }
-/* line 54, ../scss/_layout-template.scss */
+/* line 55, ../scss/_layout-template.scss */
 .increment-mana.white,
-.decrement-mana.white {
+.decrement-mana.white,
+.tap-mana.white {
   background: white;
 }
 
-/* line 60, ../scss/_layout-template.scss */
+/* line 61, ../scss/_layout-template.scss */
+.player .end-turn {
+  display: none;
+}
+/* line 65, ../scss/_layout-template.scss */
 .player.active {
   background-color: #DBE0E7;
 }
-/* line 64, ../scss/_layout-template.scss */
+/* line 68, ../scss/_layout-template.scss */
+.player.active .end-turn {
+  display: block;
+}
+/* line 73, ../scss/_layout-template.scss */
 .player.dead {
   background-color: #FF0000;
 }
