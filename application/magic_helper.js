@@ -548,7 +548,8 @@ var Game = (function() {
     }
 
     var defaults = {
-          max_life: 20
+          max_life: 20,
+          container: 'game-board'
         },
         slf = this,
         rolls = [];

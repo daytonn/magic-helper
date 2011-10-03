@@ -44,10 +44,10 @@
   <script>
     var game,
         new_game = $('#new-game'),
+        game_board,
         menu = $('#menu'),
         players = $('#players'),
         back_to_menu = $('.back-to-menu'),
-        game_board = $('#game-board'),
         play = $('#play'),
         resume = $('#resume-game'),
         settings = $('#settings'),
@@ -70,7 +70,7 @@
       e.preventDefault();
 
       game = new Game([new Player(player_one_name.val()), new Player(player_two_name.val())]);
-
+      game_board = $('#' + game.settings.container);
       players.hide();
       game_board.show();
       setup_board(game);
@@ -182,7 +182,7 @@
     }
 
     function get_player_id(player) {
-      return $(player).parents('.player').attr('id').replace(/player\-/, '').to_n() - 1
+      return $(player).parents('.player').attr('id').replace(/player\-/, '').to_n() - 1;
     };
   </script>
 </body>

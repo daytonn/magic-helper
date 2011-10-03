@@ -24,6 +24,9 @@ describe("Game", function() {
       expect(game.settings.max_life).toEqual(20);
     });
 
+    it("should have a default game board container", function() {
+      expect(game.settings.container).toEqual('game-board');
+    });
     it ('should set the default player life to max_life', function() {
       var custom_game = new Game([new Player('Dayton'), new Player('Angeleah')], {
         max_life: 50
