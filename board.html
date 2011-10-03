@@ -9,10 +9,6 @@
 <body>
   <div id="canvas">
 
-    <div id="header">
-      <h1>Magic Helper</h1>
-    </div>
-
     <div id="menu">
       <ul>
         <li><a id="new-game">New Game</a></li>
@@ -21,9 +17,7 @@
       </ul>
     </div>
 
-    <div id="game-board">
-        <button type="submit" class="back-to-menu">Menu</button>
-    </div>
+    <div id="game-board"></div>
     
     <div id="players">
         <button type="submit" class="back-to-menu">Menu</button>
@@ -73,11 +67,12 @@
         settings_form = $('#settings-form');
 
     new_game.click(function() {
+      $('#game-board').empty();
       menu.hide();
       players.show();
     });
 
-    back_to_menu.click(function() {
+    $('.back-to-menu').live('click', function() {
       players.hide();
       game_board.hide();
       menu.show();
@@ -117,6 +112,7 @@
       game.players.each(function(player, n) {
         var active = (game.get_active_player() === player) ? ' active' : '';
         game_board.append([
+          '<button type="submit" class="back-to-menu">Menu</button>',
           '<div class="player' + active + '" id="player-' + (n + 1) + '">',
           '<div class="name">' + player.name + '</div>',
           '<div class="life-display">Life: <span class="life">' + player.life + '</span></div>',
@@ -205,6 +201,10 @@
       $('.reset-mana').click(function() {
         reset_mana(get_player_id(this));
       });
+
+      $('.end-turn').click(function() {
+        end_turn(this);
+      });
     }
 
     function increment_life(player_id) {
@@ -267,11 +267,12 @@
     }
 
     function tap_mana(player, color) {
-      console.log($('#player-' + player).find('.' + color + '-mana'));
       var current_mana = $('#player-' + player).find('.' + color + '-mana').html().to_n();
       var current_total_mana = $('#player-' + player).find('.total-mana').html().to_n();
-      $('#player-' + player).find('.' + color + '-mana').html(current_mana - 1);
-      $('#player-' + player).find('.total-mana').html(current_total_mana - 1);
+      if ((current_mana - 1) >= 0) {
+        $('#player-' + player).find('.' + color + '-mana').html(current_mana - 1);
+        $('#player-' + player).find('.total-mana').html(current_total_mana - 1);
+      }
     }
 
     function get_player_id(player) {
@@ -280,6 +281,22 @@
 
     function get_player_number(player) {
       return $(player).parents('.player').attr('id').replace(/player\-/, '').to_n()
+    }
+
+    function end_turn(player) {
+      var player_id = get_player_id(player),
+          next_player = player_id + 1,
+          player_number = get_player_number(player),
+          player_container = $(player).parents('.player');
+
+      player_container.removeClass('active');
+
+      if (is_undefined(game.players[next_player])) {
+        next_player = 0;
+      }
+
+      $('#player-' + (next_player + 1)).addClass('active');
+      reset_mana(next_player);
     }
 
     function get_mana_color(mana_button) {

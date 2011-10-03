@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <p>
+      <button type="submit" class="back-to-menu">Menu</button>
+    </p>
+    <div class="player <%= ${active} %>" id="player-<%= n + 1 %>">
+      <div class="name">
+        <%= ${player.name} %>
+      </div>
+      <div class="life-display">
+        Life: <span class="life">' + player.life + '</span>
+      </div>
+      <div class="mana-display">
+        <div>
+          Total Mana: <span class="total-mana">' + (player.green_mana + player.red_mana + player.blue_mana + player.black_mana + player.white_mana + player.generic_mana) + '</span>
+        </div>
+        <div>
+          Red Mana: <span class="red-mana">' + player.red_mana + '</span>
+        </div>
+        <div>
+          Green Mana: <span class="green-mana">' + player.green_mana + '</span>
+        </div>
+        <div>
+          Blue Mana: <span class="blue-mana">' + player.blue_mana + '</span>
+        </div>
+        <div>
+          Black Mana: <span class="black-mana">' + player.black_mana + '</span>
+        </div>
+        <div>
+          White Mana: <span class="white-mana">' + player.white_mana + '</span>
+        </div>
+        <div>
+          Generic Mana: <span class="generic-mana">' + player.generic_mana + '</span>
+        </div>
+      </div>
+      <div class="poision-display">
+        Poision: <span class="poision">' + player.poision + '</span>
+      </div>
+      <div class="player-controls">
+        <div class="life-controls">
+          <button type="submit" class="decrement-life">-</button> <button type="submit" class="increment-life">+</button>
+        </div>
+        <div class="poision-controls">
+          <button type="submit" class="decrement-poision">-</button> <button type="submit" class="increment-poision">+</button>
+        </div>
+        <div class="mana-controls">
+          <button type="submit" class="red decrement-mana">-</button> <button type="submit" class="red tap-mana">tap</button> <button type="submit" class="red increment-mana">+</button> <button type="submit" class="green decrement-mana">-</button> <button type="submit" class="green tap-mana">tap</button> <button type="submit" class="green increment-mana">+</button> <button type="submit" class="white decrement-mana">-</button> <button type="submit" class="white tap-mana">tap</button> <button type="submit" class="white increment-mana">+</button> <button type="submit" class="black decrement-mana">-</button> <button type="submit" class="black tap-mana">tap</button> <button type="submit" class="black increment-mana">+</button> <button type="submit" class="blue decrement-mana">-</button> <button type="submit" class="blue tap-mana">tap</button> <button type="submit" class="blue increment-mana">+</button> <button type="submit" class="generic decrement-mana">-</button> <button type="submit" class="generic tap-mana">tap</button> <button type="submit" class="generic increment-mana">+</button> <button type="submit" class="reset-mana">reset mana</button>
+        </div>
+      </div><button type="submit" class="end-turn">End Turn</button>
+    </div>
+  </body>
+</html>
