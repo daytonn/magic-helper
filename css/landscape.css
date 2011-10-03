@@ -26,23 +26,28 @@ a {
   display: none;
 }
 
-/* line 25, ../scss/_layout-template.scss */
+/* line 24, ../scss/_layout-template.scss */
+#settings {
+  display: none;
+}
+
+/* line 29, ../scss/_layout-template.scss */
 .increment-poision,
 .decrement-poision {
   background-color: green;
 }
 
-/* line 30, ../scss/_layout-template.scss */
+/* line 34, ../scss/_layout-template.scss */
 .increment-mana,
 .decrement-mana {
   background-color: #8D5306;
 }
 
-/* line 35, ../scss/_layout-template.scss */
+/* line 39, ../scss/_layout-template.scss */
 .player.active {
   background-color: #DBE0E7;
 }
-/* line 39, ../scss/_layout-template.scss */
+/* line 43, ../scss/_layout-template.scss */
 .player.dead {
   background-color: #FF0000;
 }

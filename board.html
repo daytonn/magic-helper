@@ -17,28 +17,40 @@
       <ul>
         <li><a id="new-game">New Game</a></li>
         <li><a id="resume-game">Resume Game</a></li>
-        <li><a id="settings">Settings</a></li>
+        <li><a id="settings-link">Settings</a></li>
       </ul>
     </div>
 
-    <div id="game-board"></div>
+    <div id="game-board">
+        <button type="submit" class="back-to-menu">Menu</button>
+    </div>
     
     <div id="players">
-      <button type="submit" class="back-to-menu">Back</button>
-
-      <form action="" method="get">
+        <button type="submit" class="back-to-menu">Menu</button>
+      <form id="players-form" action="" method="get">
         <fieldset>
           <legend>Players</legend>
-          <label for="player-1">Player 1</label>
+          <label for="player-1">Player 1: </label>
           <input type="text" name="player_one" id="player-1-name" value="Player 1"required />
-          <label for="player-2">Player 2</label>
+          <label for="player-2">Player 2: </label>
           <input type="text" name="player_two" id="player-2-name" value="Player 2"required />
         </fieldset>
 
         <input type="submit" id="play" name="submit" value="Play" />
       </form>
     </div>
+
+    <div id="settings">
+        <form action="" method="get" id="settings-form">
+            <fieldset>
+                <legend>Settings</legend>
+                <label>Max Life: <input type="text" name="max_life" id="max-life-setting" value="20" /></label>
+            </fieldset>
+            <input type="submit" name="submit" id="save-settings" value="Save" />
+        </form>
+    </div>
   </div>
+  <!-- #canvas -->
   <script src="application/magic_helper.js"></script>
   <script src="application/application.js"></script>
   <script>
@@ -50,11 +62,15 @@
         back_to_menu = $('.back-to-menu'),
         play = $('#play'),
         resume = $('#resume-game'),
+        settings_link = $('#settings-link'),
         settings = $('#settings'),
+        max_life_setting = $('#max-life-setting'),
         player_one_name = $('#player-1-name'),
         player_two_name = $('#player-2-name'),
         player_one,
-        player_two;
+        player_two,
+        players_form = $('#players-form'),
+        settings_form = $('#settings-form');
 
     new_game.click(function() {
       menu.hide();
@@ -63,18 +79,46 @@
 
     back_to_menu.click(function() {
       players.hide();
+      game_board.hide();
       menu.show();
     });
 
-    $('form').submit(function(e) {
+    resume.click(function() {
+        menu.hide();
+        game_board.show();
+    });
+
+    settings_link.click(function() {
+        menu.hide();
+        settings.show();
+    });
+
+    players_form.submit(function(e) {
       e.preventDefault();
 
-      game = new Game([new Player(player_one_name.val()), new Player(player_two_name.val())]);
+      game = new Game([new Player(player_one_name.val()), new Player(player_two_name.val())], {
+          max_life: max_life_setting.val()
+      });
+
       game_board = $('#' + game.settings.container);
       players.hide();
       game_board.show();
       setup_board(game);
       activate_game();
+    });
+
+    settings_form.submit(function(e) {
+        e.preventDefault();
+        if (is_defined(game)) {
+            game.settings.max_life = max_life_setting.val();
+            game.players.each(function(player, n) {
+                player.life = max_life_setting - player.life;
+                console.log(n);
+                update_life.call(player, n);
+            });
+        }
+        settings.hide();
+        menu.show();
     });
 
     function setup_board(game) {
