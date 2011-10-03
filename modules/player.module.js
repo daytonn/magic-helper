@@ -71,6 +71,11 @@ var Player = (function() {
     }
     return this;
   };
+
+  Player.prototype.total_mana = function() {
+    return (this.red_mana + this.green_mana + this.blue_mana + this.white_mana + this.black_mana + this.generic_mana);
+  };
+
   // private
   function set_defaults(defaults) {
     for (var setting in defaults) {

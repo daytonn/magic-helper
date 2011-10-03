@@ -131,6 +131,16 @@ describe("Player:", function() {
       player.decrement_mana('red', 5);
       expect(player.red_mana).toEqual(0);
     });
+
+    it ('should calculate total mana', function() {
+      player.increment_mana('red');
+      player.increment_mana('green');
+      player.increment_mana('blue');
+      player.increment_mana('white');
+      player.increment_mana('black');
+      player.increment_mana('generic');
+      expect(player.total_mana()).toEqual(6);
+    });
   });
 
 });

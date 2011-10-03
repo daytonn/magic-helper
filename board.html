@@ -120,7 +120,15 @@
           '<div class="player' + active + '" id="player-' + (n + 1) + '">',
           '<div class="name">' + player.name + '</div>',
           '<div class="life-display">Life: <span class="life">' + player.life + '</span></div>',
-          '<div class="mana-display">Mana: <span class="mana">' + player.mana + '</span></div>',
+          '<div class="mana-display">',
+          '<div>Total Mana: <span class="total-mana">' + (player.green_mana + player.red_mana + player.blue_mana + player.black_mana + player.white_mana + player.generic_mana) + '</span></div>',
+          '<div>Red Mana: <span class="red-mana">' + player.red_mana + '</span></div>',
+          '<div>Green Mana: <span class="green-mana">' + player.green_mana + '</span></div>',
+          '<div>Blue Mana: <span class="blue-mana">' + player.blue_mana + '</span></div>',
+          '<div>Black Mana: <span class="black-mana">' + player.black_mana + '</span></div>',
+          '<div>White Mana: <span class="white-mana">' + player.white_mana + '</span></div>',
+          '<div>Generic Mana: <span class="generic-mana">' + player.generic_mana + '</span></div>',
+          '</div>',
           '<div class="poision-display">Poision: <span class="poision">' + player.poision + '</span></div>',
           '<div class="player-controls">',
           '<div class="life-controls">',
@@ -132,8 +140,24 @@
           '<button type="submit" class="increment-poision">+</button>',
           '</div>',
           '<div class="mana-controls">',
-          '<button type="submit" class="decrement-mana">-</button>',
-          '<button type="submit" class="increment-mana">+</button>',
+          '<button type="submit" class="red decrement-mana">-</button>',
+          '<button type="submit" class="red tap-mana">tap</button>',
+          '<button type="submit" class="red increment-mana">+</button>',
+          '<button type="submit" class="green decrement-mana">-</button>',
+          '<button type="submit" class="green tap-mana">tap</button>',
+          '<button type="submit" class="green increment-mana">+</button>',
+          '<button type="submit" class="white decrement-mana">-</button>',
+          '<button type="submit" class="white tap-mana">tap</button>',
+          '<button type="submit" class="white increment-mana">+</button>',
+          '<button type="submit" class="black decrement-mana">-</button>',
+          '<button type="submit" class="black tap-mana">tap</button>',
+          '<button type="submit" class="black increment-mana">+</button>',
+          '<button type="submit" class="blue decrement-mana">-</button>',
+          '<button type="submit" class="blue tap-mana">tap</button>',
+          '<button type="submit" class="blue increment-mana">+</button>',
+          '<button type="submit" class="generic decrement-mana">-</button>',
+          '<button type="submit" class="generic tap-mana">tap</button>',
+          '<button type="submit" class="generic increment-mana">+</button>',
           '</div>',
           '</div>',
           '</div>'
@@ -162,11 +186,13 @@
       });
 
       $('.increment-mana').click(function() {
-        increment_mana(get_player_id(this));
+        var color = get_mana_color(this);
+        increment_mana(get_player_id(this), color);
       });
 
       $('.decrement-mana').click(function() {
-        decrement_mana(get_player_id(this));
+        var color = get_mana_color(this);
+        decrement_mana(get_player_id(this), color);
       });
     }
 
@@ -191,14 +217,14 @@
       update_poision.call(game.players[player_id], player_id + 1);
     }
     
-    function increment_mana(player_id) {
-      game.players[player_id].increment_mana();
-      update_mana.call(game.players[player_id], player_id + 1);
+    function increment_mana(player_id, color) {
+      game.players[player_id].increment_mana(color);
+      update_mana.call(game.players[player_id], player_id + 1, color);
     }
 
-    function decrement_mana(player_id) {
-      game.players[player_id].decrement_mana();
-      update_mana.call(game.players[player_id], player_id + 1);
+    function decrement_mana(player_id, color) {
+      game.players[player_id].decrement_mana(color);
+      update_mana.call(game.players[player_id], player_id + 1, color);
     }
 
     function update_life(player) {
@@ -213,13 +239,38 @@
       $('#player-' + player).find('.poision').html(this.poision);
     }
 
-    function update_mana(player) {
-      $('#player-' + player).find('.mana').html(this.mana);
+    function update_mana(player, color) {
+      $('#player-' + player).find('.' + color + '-mana').html(this[color + '_mana']);
+      $('#player-' + player).find('.total-mana').html(this.total_mana());
     }
 
     function get_player_id(player) {
       return $(player).parents('.player').attr('id').replace(/player\-/, '').to_n() - 1;
-    };
+    }
+
+    function get_mana_color(mana_button) {
+      mana_button = $(mana_button);
+      var color;
+      if (mana_button.hasClass('red')) {
+        color = 'red';
+      }
+      if (mana_button.hasClass('green')) {
+        color = 'green';
+      }
+      if (mana_button.hasClass('blue')) {
+        color = 'blue';
+      }
+      if (mana_button.hasClass('white')) {
+        color = 'white';
+      }
+      if (mana_button.hasClass('black')) {
+        color = 'black';
+      }
+      if (mana_button.hasClass('generic')) {
+        color = 'generic';
+      }
+      return color;
+    }
   </script>
 </body>
 </html>

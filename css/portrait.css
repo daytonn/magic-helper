@@ -40,14 +40,40 @@ a {
 /* line 34, ../scss/_layout-template.scss */
 .increment-mana,
 .decrement-mana {
-  background-color: #8D5306;
+  background-color: #E5E5E5;
+}
+/* line 37, ../scss/_layout-template.scss */
+.increment-mana.red,
+.decrement-mana.red {
+  background: red;
+}
+/* line 41, ../scss/_layout-template.scss */
+.increment-mana.green,
+.decrement-mana.green {
+  background: green;
+}
+/* line 45, ../scss/_layout-template.scss */
+.increment-mana.blue,
+.decrement-mana.blue {
+  background: blue;
+}
+/* line 49, ../scss/_layout-template.scss */
+.increment-mana.black,
+.decrement-mana.black {
+  background: black;
+  color: white;
+}
+/* line 54, ../scss/_layout-template.scss */
+.increment-mana.white,
+.decrement-mana.white {
+  background: white;
 }
 
-/* line 39, ../scss/_layout-template.scss */
+/* line 60, ../scss/_layout-template.scss */
 .player.active {
   background-color: #DBE0E7;
 }
-/* line 43, ../scss/_layout-template.scss */
+/* line 64, ../scss/_layout-template.scss */
 .player.dead {
   background-color: #FF0000;
 }
