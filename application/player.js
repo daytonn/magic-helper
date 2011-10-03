@@ -9,7 +9,12 @@ var Player = (function() {
       name: name,
       life: 20,
       poision: 0,
-      mana: 0
+      red_mana: 0,
+      blue_mana: 0,
+      green_mana: 0,
+      black_mana: 0,
+      white_mana: 0,
+      generic_mana: 0
     });
   }
 
@@ -47,15 +52,22 @@ var Player = (function() {
     return this;
   };
 
-  Player.prototype.increment_mana = function(n) {
-    this.mana += n || 1;
+  Player.prototype.increment_mana = function(color, n) {
+    if (is_undefined(color)) {
+      throw new Error('Player.increment_mana(color, n) - color is undefined');
+    }
+    this[color + '_mana'] += n || 1;
     return this;
   };
 
-  Player.prototype.decrement_mana = function(n) {
-    this.mana -= n || 1;
-    if (this.mana < 0) {
-      this.mana = 0;
+  Player.prototype.decrement_mana = function(color, n) {
+    if (is_undefined(color)) {
+      throw new Error('Player.decrement_mana(color, n) - color is undefined');
+    }
+    var mana_color = color + '_mana';
+    this[mana_color] -= n || 1;
+    if (this[mana_color] < 0) {
+      this[mana_color] = 0;
     }
     return this;
   };

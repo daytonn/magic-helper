@@ -109,14 +109,6 @@
 
     settings_form.submit(function(e) {
         e.preventDefault();
-        if (is_defined(game)) {
-            game.settings.max_life = max_life_setting.val();
-            game.players.each(function(player, n) {
-                player.life = max_life_setting - player.life;
-                console.log(n);
-                update_life.call(player, n);
-            });
-        }
         settings.hide();
         menu.show();
     });

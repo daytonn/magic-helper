@@ -4,7 +4,7 @@ describe("Player:", function() {
 
     var player;
     beforeEach(function() {
-      player = new Player('Dayton')
+      player = new Player('Dayton');
     });
 
     afterEach(function() {
@@ -25,8 +25,13 @@ describe("Player:", function() {
       expect(player.poision).toEqual(0);
     });
 
-    it("should have a default mana value of 0", function() {
-      expect(player.mana).toEqual(0);
+    it("should have 6 colors of mana", function() {
+      expect(player.red_mana).toEqual(0);
+      expect(player.blue_mana).toEqual(0);
+      expect(player.green_mana).toEqual(0);
+      expect(player.black_mana).toEqual(0);
+      expect(player.white_mana).toEqual(0);
+      expect(player.generic_mana).toEqual(0);
     });
   });
 
@@ -99,25 +104,32 @@ describe("Player:", function() {
     });
 
     it("should increment mana by 1", function() {
-      player.increment_mana();
-      expect(player.mana).toEqual(1);
+      expect(function() {
+        player.increment_mana();
+      }).toThrow('Player.increment_mana(color, n) - color is undefined');
+      player.increment_mana('red');
+      expect(player.red_mana).toEqual(1);
     });
 
     it("should increment mana by n", function() {
-      player.increment_mana(5);
-      expect(player.mana).toEqual(5);
+      player.increment_mana('red', 5);
+      expect(player.red_mana).toEqual(5);
     });
 
     it("should decrement mana by 1", function() {
-      player.increment_mana();
-      player.decrement_mana();
-      expect(player.mana).toEqual(0);
+      expect(function() {
+        player.decrement_mana();
+      }).toThrow('Player.decrement_mana(color, n) - color is undefined');
+
+      player.increment_mana('red');
+      player.decrement_mana('red');
+      expect(player.red_mana).toEqual(0);
     });
 
     it("should decrement mana by n", function() {
-      player.increment_mana(5);
-      player.decrement_mana(5);
-      expect(player.mana).toEqual(0);
+      player.increment_mana('red', 5);
+      player.decrement_mana('red', 5);
+      expect(player.red_mana).toEqual(0);
     });
   });
 
