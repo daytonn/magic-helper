@@ -1,0 +1,344 @@
+@import "compass";
+.serif {
+  font-family: Cambria, "Hoefler Text", Utopia, "Liberation Serif", "Nimbus Roman No9 L Regular", Times, "Times New Roman", serif;
+}
+
+.sans-serif {
+  font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 200%;
+
+  &.menu {
+    background: url('../images/menu-bg.jpg') center 60px no-repeat;
+
+    .back-to-menu {
+      display: none;
+    }
+  }
+
+  &.game {
+    .back-to-menu {
+      display: none;
+    }
+  }
+}
+
+.back-to-menu {
+  display: block;
+  margin: 50px auto 0 auto;
+}
+
+a {
+  cursor: pointer;
+}
+
+input {
+  font-size: 100%;
+  margin: 0 0 20px 0;
+}
+
+#canvas {
+  width: 762px;
+  height: 910px;
+}
+
+#players {
+  position: absolute;
+  left: 109px;
+  top: 200px;
+  display: none;
+  width: 551px;
+  height: 584px;
+
+  fieldset {
+    border: none;
+    outline: none;
+    text-align: center;
+  }
+
+  button {
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+    left: 225px;
+  }
+}
+
+#game-board {
+  display: none;
+}
+
+#settings {
+	display: none;
+}
+
+.increment-poision,
+.decrement-poision {
+  background-color: green;
+}
+
+.increment-mana,
+.decrement-mana,
+.tap-mana {
+  background-color: #E5E5E5;
+
+  &.red {
+    background: red;
+  }
+
+  &.green {
+    background: green;
+  }
+
+  &.blue {
+    background: blue;
+  }
+
+  &.black {
+    background: black;
+    color: white;
+  }
+
+  &.white {
+    background: white;
+  }
+}
+
+#player-1 {
+  @include rotate(-180deg);
+  border-top: dashed 2px #999;
+  height: 433px;
+}
+
+#menu {
+  position: absolute;
+  top: 775px;
+  left: 299px;
+  width: 571px;
+  margin: -200px 0 0 -200px;
+  background: white;
+  @include box-shadow(#333, 0px, 0px, 6px, 3px);
+  
+  ul {
+    list-style: none;
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  li {
+    margin: 0;
+    padding: 10px 0px;
+  }
+}
+
+button {
+  font-size: 100%;
+}
+
+.player {
+  overflow: none;
+  position: relative;
+  height: 400px;
+  width: 728px;
+  padding: 20px;
+  font-size: 14px;
+  .end-turn {
+    display: none;
+  }
+
+  &.active {
+    background-color: #DBE0E7;
+
+    .end-turn {
+      display: block;
+    }
+  }
+
+  &.dead {
+    background-color: #FF0000;
+  }
+
+  .name {
+    float: right;
+    font-size: 36px;
+    @extend .serif;
+  }
+  
+  .life-display {
+    display: block;
+    float: right;
+    clear: right;
+  }
+  
+  .progress-bar {
+    float: left;
+    width: 300px;
+    margin: 12px 0 0 5px;
+  }
+
+  .life {
+    float: left;
+    font-size: 20px;
+    margin: 8px 0 0 0;
+    @extend .sans-serif;
+  }
+  
+  .mana-display {
+    overflow: hidden;
+    height: 60px;
+    @extend .sans-serif;
+
+    .mana {
+      float: left;
+      width: 31px;
+      height: 31px;
+      padding: 0 0 0 35px;
+      font-size: 28px;
+      background: url('../images/mana-sprite.png') no-repeat;
+    }
+
+    .red-mana {
+      @extend .mana;
+      background-position: 0px -31px;
+    }
+
+    .white-mana {
+      @extend .mana;
+      background-position: 0px -61px;
+    }
+
+    .blue-mana {
+      @extend .mana;
+      background-position: 0px -91px;
+    }
+
+    .green-mana {
+      @extend .mana;
+      background-position: 0px -121px;
+    }
+
+    .black-mana {
+      @extend .mana;
+    }
+    
+    .generic-mana {
+      @extend .mana;
+      background-position: 0px -201px;
+    }
+    
+    .total {
+      @extend .mana;
+      @extend .serif;
+      font-size: 35px;
+      color: #333;
+      padding: 2px 0 0 0;
+      background: none;
+      font-weight: bold;
+    }
+    
+    .total-mana {
+      @extend .mana;
+      padding: 0 0 0 10px;
+      background: none;
+    }
+  }
+  
+  .poision-display {
+    @extend .mana;
+    @extend .serif;
+    font-size: 35px;
+    color: green;
+    padding: 2px 0 0 0;
+    background: none;
+    font-weight: bold;
+  }
+  
+  .poision {
+    @extend .mana;
+    @extend .sans-serif;
+    color: green;
+    font-size: 28px;
+    padding: 0 0 0 10px;
+    background: none;
+  }
+
+  .life-controls {
+    float: right;
+    clear: right;
+
+    button {
+      font-size: 32px;
+      width: 58px;
+      height: 58px;
+      @include border-radius(27px);
+      padding: 0.25em 0.5em;
+      background: white;
+      margin: 0 0 0 15px;
+    }
+  }
+
+  .poision-controls {
+    float: right;
+    
+    button {
+      font-size: 32px;
+      width: 58px;
+      height: 58px;
+      margin: 0 0 0 15px;
+      @include border-radius(27px);
+      padding: 0.25em 0.5em;
+    }
+  }
+
+  .player-controls {
+    position: absolute;
+    bottom: 20px;
+  }
+  
+  .tap-mana {
+    width: 100px;
+    height: 125px;
+    border: none;
+    @include border-radius(10px);
+  }
+  
+  .mana-controls {
+    .group {
+      overflow: hidden;
+      float: left;
+      display: inline-block;
+      margin: 0 20px 0 0;
+    }
+    
+    .tap-mana {
+      display: block;
+      border: solid 1px #333;
+    }
+
+    .decrement-mana {
+      border: none;
+      width: 40px;
+      height: 40px;
+      margin: 5px 0 0 0;
+      @include border-radius(5px);
+      border: solid 1px #333;
+    }
+
+    .increment-mana {
+      @extend .decrement-mana;
+      float: right;
+    }
+    
+    .reset-mana {
+      clear: both;
+      display: block;
+    }
+  }
+}

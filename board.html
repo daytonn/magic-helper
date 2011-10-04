@@ -3,34 +3,36 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="initial-scale=1.0,user-scalable=no">
   <title>Magic Helper</title>
-  <link rel="stylesheet" href="css/portrait.css" />
-  <link rel="stylesheet" href="css/landscape.css" />
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/aristo.css">
+  <link rel="stylesheet" href="css/main.css" />
 </head>
-<body>
+<body class="menu">
   <div id="canvas">
-
+    <button type="submit" class="back-to-menu">Menu</button>
     <div id="menu">
       <ul>
-        <li><a id="new-game">New Game</a></li>
-        <li><a id="resume-game">Resume Game</a></li>
-        <li><a id="settings-link">Settings</a></li>
+        <li><button id="new-game">New Game</button></li>
+        <li><button id="resume-game">Resume Game</button></li>
+        <li><button id="settings-link">Settings</button></li>
       </ul>
     </div>
 
     <div id="game-board"></div>
     
     <div id="players">
-        <button type="submit" class="back-to-menu">Menu</button>
       <form id="players-form" action="" method="get">
         <fieldset>
           <legend>Players</legend>
-          <label for="player-1">Player 1: </label>
-          <input type="text" name="player_one" id="player-1-name" value="Player 1"required />
-          <label for="player-2">Player 2: </label>
-          <input type="text" name="player_two" id="player-2-name" value="Player 2"required />
+          <div class="field">
+            <input type="text" name="player_one" id="player-1-name" value="Player 1"required />
+          </div>
+          <div class="field">
+            <input type="text" name="player_two" id="player-2-name" value="Player 2"required />
+          </div>
         </fieldset>
 
-        <input type="submit" id="play" name="submit" value="Play" />
+        <button type="submit" id="play" name="submit">Play</button>
       </form>
     </div>
 
@@ -40,7 +42,7 @@
                 <legend>Settings</legend>
                 <label>Max Life: <input type="text" name="max_life" id="max-life-setting" value="20" /></label>
             </fieldset>
-            <input type="submit" name="submit" id="save-settings" value="Save" />
+            <button type="submit" name="submit" id="save-settings">Save</button>
         </form>
     </div>
   </div>
@@ -49,8 +51,9 @@
   <script src="application/application.js"></script>
   <script>
     var game,
+        body = $('body'),
         new_game = $('#new-game'),
-        game_board,
+        game_board = $('#game-board'),
         menu = $('#menu'),
         players = $('#players'),
         back_to_menu = $('.back-to-menu'),
@@ -69,22 +72,26 @@
     new_game.click(function() {
       $('#game-board').empty();
       menu.hide();
+      body.removeClass('menu');
       players.show();
     });
 
     $('.back-to-menu').live('click', function() {
       players.hide();
       game_board.hide();
+      body.addClass('menu');
       menu.show();
     });
 
     resume.click(function() {
+        body.removeClass('menu');
         menu.hide();
         game_board.show();
     });
 
     settings_link.click(function() {
         menu.hide();
+        body.removeClass('menu');
         settings.show();
     });
 
@@ -92,7 +99,7 @@
       e.preventDefault();
 
       game = new Game([new Player(player_one_name.val()), new Player(player_two_name.val())], {
-          max_life: max_life_setting.val()
+          max_life: max_life_setting.val().to_n()
       });
 
       game_board = $('#' + game.settings.container);
@@ -109,24 +116,23 @@
     });
 
     function setup_board(game) {
+      body.removeClass('menu').addClass('game');
       game.players.each(function(player, n) {
         var active = (game.get_active_player() === player) ? ' active' : '';
         game_board.append([
-          '<button type="submit" class="back-to-menu">Menu</button>',
           '<div class="player' + active + '" id="player-' + (n + 1) + '">',
           '<div class="name">' + player.name + '</div>',
-          '<div class="life-display">Life: <span class="life">' + player.life + '</span></div>',
+          '<div class="life-display"><div class="life">' + player.life + '</div><div class="progress-bar"></div></div>',
           '<div class="mana-display">',
-          '<div>Total Mana: <span class="total-mana">' + (player.green_mana + player.red_mana + player.blue_mana + player.black_mana + player.white_mana + player.generic_mana) + '</span></div>',
-          '<div>Red Mana: <span class="red-mana">' + player.red_mana + '</span></div>',
-          '<div>Green Mana: <span class="green-mana">' + player.green_mana + '</span></div>',
-          '<div>Blue Mana: <span class="blue-mana">' + player.blue_mana + '</span></div>',
-          '<div>Black Mana: <span class="black-mana">' + player.black_mana + '</span></div>',
-          '<div>White Mana: <span class="white-mana">' + player.white_mana + '</span></div>',
-          '<div>Generic Mana: <span class="generic-mana">' + player.generic_mana + '</span></div>',
+          '<span class="total">M </span><span class="total-mana">' + (player.green_mana + player.red_mana + player.blue_mana + player.black_mana + player.white_mana + player.generic_mana) + '</span>',
+          '<div class="red-mana">' + player.red_mana + '</div>',
+          '<div class="green-mana">' + player.green_mana + '</div>',
+          '<div class="blue-mana">' + player.blue_mana + '</div>',
+          '<div class="black-mana">' + player.black_mana + '</div>',
+          '<div class="white-mana">' + player.white_mana + '</div>',
+          '<div class="generic-mana">' + player.generic_mana + '</div>',
           '</div>',
-          '<div class="poision-display">Poision: <span class="poision">' + player.poision + '</span></div>',
-          '<div class="player-controls">',
+          '<span class="poision-display">P</span><span class="poision">' + player.poision + '</span>',
           '<div class="life-controls">',
           '<button type="submit" class="decrement-life">-</button>',
           '<button type="submit" class="increment-life">+</button>',
@@ -135,26 +141,32 @@
           '<button type="submit" class="decrement-poision">-</button>',
           '<button type="submit" class="increment-poision">+</button>',
           '</div>',
+          '<div class="player-controls">',
           '<div class="mana-controls">',
-          '<button type="submit" class="red decrement-mana">-</button>',
-          '<button type="submit" class="red tap-mana">tap</button>',
-          '<button type="submit" class="red increment-mana">+</button>',
-          '<button type="submit" class="green decrement-mana">-</button>',
-          '<button type="submit" class="green tap-mana">tap</button>',
-          '<button type="submit" class="green increment-mana">+</button>',
-          '<button type="submit" class="white decrement-mana">-</button>',
-          '<button type="submit" class="white tap-mana">tap</button>',
-          '<button type="submit" class="white increment-mana">+</button>',
-          '<button type="submit" class="black decrement-mana">-</button>',
-          '<button type="submit" class="black tap-mana">tap</button>',
-          '<button type="submit" class="black increment-mana">+</button>',
-          '<button type="submit" class="blue decrement-mana">-</button>',
-          '<button type="submit" class="blue tap-mana">tap</button>',
-          '<button type="submit" class="blue increment-mana">+</button>',
-          '<button type="submit" class="generic decrement-mana">-</button>',
-          '<button type="submit" class="generic tap-mana">tap</button>',
-          '<button type="submit" class="generic increment-mana">+</button>',
           '<button type="submit" class="reset-mana">reset mana</button>',
+          '<div class="group"><button type="submit" class="red tap-mana">tap</button>',
+          '<button type="submit" class="red decrement-mana">-</button>',
+          '<button type="submit" class="red increment-mana">+</button></div>',
+          
+          '<div class="group"><button type="submit" class="green tap-mana">tap</button>',
+          '<button type="submit" class="green decrement-mana">-</button>',
+          '<button type="submit" class="green increment-mana">+</button></div>',
+          
+          '<div class="group"><button type="submit" class="white tap-mana">tap</button>',
+          '<button type="submit" class="white decrement-mana">-</button>',
+          '<button type="submit" class="white increment-mana">+</button></div>',
+          
+          '<div class="group"><button type="submit" class="black tap-mana">tap</button>',
+          '<button type="submit" class="black decrement-mana">-</button>',
+          '<button type="submit" class="black increment-mana">+</button></div>',
+          
+          '<div class="group"><button type="submit" class="blue tap-mana">tap</button>',
+          '<button type="submit" class="blue decrement-mana">-</button>',
+          '<button type="submit" class="blue increment-mana">+</button></div>',
+          
+          '<div class="group"><button type="submit" class="generic tap-mana">tap</button>',
+          '<button type="submit" class="generic decrement-mana">-</button>',
+          '<button type="submit" class="generic increment-mana">+</button></div>',
           '</div>',
           '</div>',
           '<button type="submit" class="end-turn">End Turn</button>',
@@ -205,6 +217,8 @@
       $('.end-turn').click(function() {
         end_turn(this);
       });
+
+      $('.progress-bar').progressbar({ value: 100 });
     }
 
     function increment_life(player_id) {
@@ -255,6 +269,7 @@
       if (this.life < 1) {
         player.addClass('dead');
       }
+      update_percentage(player, this.life);
     }
 
     function update_poision(player) {
@@ -280,7 +295,7 @@
     }
 
     function get_player_number(player) {
-      return $(player).parents('.player').attr('id').replace(/player\-/, '').to_n()
+      return $(player).parents('.player').attr('id').replace(/player\-/, '').to_n();
     }
 
     function end_turn(player) {
@@ -322,6 +337,18 @@
       }
       return color;
     }
+    
+    function update_percentage(player, life) {
+      var percentage = (life/game.settings.max_life) * 100;
+      console.log(percentage);
+      console.log(player);
+      console.log(life);
+      console.log($(player).find('.progressbar'));
+      $(player).find('.progress-bar').progressbar('value', percentage);
+    }
+
+    players_form.submit();
+    $('#menu').hide();
   </script>
 </body>
 </html>

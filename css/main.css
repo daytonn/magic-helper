@@ -1,0 +1,385 @@
+/* line 2, ../scss/main.scss */
+.serif, .player .name, .player .mana-display .total, .player .poision-display {
+  font-family: Cambria, "Hoefler Text", Utopia, "Liberation Serif", "Nimbus Roman No9 L Regular", Times, "Times New Roman", serif;
+}
+
+/* line 6, ../scss/main.scss */
+.sans-serif, .player .life, .player .mana-display, .player .poision {
+  font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* line 10, ../scss/main.scss */
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 200%;
+}
+/* line 15, ../scss/main.scss */
+body.menu {
+  background: url("../images/menu-bg.jpg") center 60px no-repeat;
+}
+/* line 18, ../scss/main.scss */
+body.menu .back-to-menu {
+  display: none;
+}
+/* line 24, ../scss/main.scss */
+body.game .back-to-menu {
+  display: none;
+}
+
+/* line 30, ../scss/main.scss */
+.back-to-menu {
+  display: block;
+  margin: 50px auto 0 auto;
+}
+
+/* line 35, ../scss/main.scss */
+a {
+  cursor: pointer;
+}
+
+/* line 39, ../scss/main.scss */
+input {
+  font-size: 100%;
+  margin: 0 0 20px 0;
+}
+
+/* line 44, ../scss/main.scss */
+#canvas {
+  width: 762px;
+  height: 910px;
+}
+
+/* line 49, ../scss/main.scss */
+#players {
+  position: absolute;
+  left: 109px;
+  top: 200px;
+  display: none;
+  width: 551px;
+  height: 584px;
+}
+/* line 57, ../scss/main.scss */
+#players fieldset {
+  border: none;
+  outline: none;
+  text-align: center;
+}
+/* line 63, ../scss/main.scss */
+#players button {
+  display: block;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 0;
+  left: 225px;
+}
+
+/* line 72, ../scss/main.scss */
+#game-board {
+  display: none;
+}
+
+/* line 76, ../scss/main.scss */
+#settings {
+  display: none;
+}
+
+/* line 81, ../scss/main.scss */
+.increment-poision,
+.decrement-poision {
+  background-color: green;
+}
+
+/* line 87, ../scss/main.scss */
+.increment-mana,
+.decrement-mana,
+.player .mana-controls .increment-mana, .player .mana-controls
+.increment-mana,
+.tap-mana {
+  background-color: #E5E5E5;
+}
+/* line 90, ../scss/main.scss */
+.increment-mana.red,
+.decrement-mana.red,
+.player .mana-controls .red.increment-mana, .player .mana-controls
+.red.increment-mana,
+.tap-mana.red {
+  background: red;
+}
+/* line 94, ../scss/main.scss */
+.increment-mana.green,
+.decrement-mana.green,
+.player .mana-controls .green.increment-mana, .player .mana-controls
+.green.increment-mana,
+.tap-mana.green {
+  background: green;
+}
+/* line 98, ../scss/main.scss */
+.increment-mana.blue,
+.decrement-mana.blue,
+.player .mana-controls .blue.increment-mana, .player .mana-controls
+.blue.increment-mana,
+.tap-mana.blue {
+  background: blue;
+}
+/* line 102, ../scss/main.scss */
+.increment-mana.black,
+.decrement-mana.black,
+.player .mana-controls .black.increment-mana, .player .mana-controls
+.black.increment-mana,
+.tap-mana.black {
+  background: black;
+  color: white;
+}
+/* line 107, ../scss/main.scss */
+.increment-mana.white,
+.decrement-mana.white,
+.player .mana-controls .white.increment-mana, .player .mana-controls
+.white.increment-mana,
+.tap-mana.white {
+  background: white;
+}
+
+/* line 112, ../scss/main.scss */
+#player-1 {
+  -moz-transform: rotate(-180deg);
+  -webkit-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+  border-top: dashed 2px #999;
+  height: 433px;
+}
+
+/* line 118, ../scss/main.scss */
+#menu {
+  position: absolute;
+  top: 775px;
+  left: 299px;
+  width: 571px;
+  margin: -200px 0 0 -200px;
+  background: white;
+  -moz-box-shadow: 0px 0px 6px 3px #333333;
+  -webkit-box-shadow: 0px 0px 6px 3px #333333;
+  -o-box-shadow: 0px 0px 6px 3px #333333;
+  box-shadow: 0px 0px 6px 3px #333333;
+}
+/* line 127, ../scss/main.scss */
+#menu ul {
+  list-style: none;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+/* line 135, ../scss/main.scss */
+#menu li {
+  margin: 0;
+  padding: 10px 0px;
+}
+
+/* line 141, ../scss/main.scss */
+button {
+  font-size: 100%;
+}
+
+/* line 145, ../scss/main.scss */
+.player {
+  overflow: none;
+  position: relative;
+  height: 400px;
+  width: 728px;
+  padding: 20px;
+  font-size: 14px;
+}
+/* line 152, ../scss/main.scss */
+.player .end-turn {
+  display: none;
+}
+/* line 156, ../scss/main.scss */
+.player.active {
+  background-color: #DBE0E7;
+}
+/* line 159, ../scss/main.scss */
+.player.active .end-turn {
+  display: block;
+}
+/* line 164, ../scss/main.scss */
+.player.dead {
+  background-color: #FF0000;
+}
+/* line 168, ../scss/main.scss */
+.player .name {
+  float: right;
+  font-size: 36px;
+}
+/* line 174, ../scss/main.scss */
+.player .life-display {
+  display: block;
+  float: right;
+  clear: right;
+}
+/* line 180, ../scss/main.scss */
+.player .progress-bar {
+  float: left;
+  width: 300px;
+  margin: 12px 0 0 5px;
+}
+/* line 186, ../scss/main.scss */
+.player .life {
+  float: left;
+  font-size: 20px;
+  margin: 8px 0 0 0;
+}
+/* line 193, ../scss/main.scss */
+.player .mana-display {
+  overflow: hidden;
+  height: 60px;
+}
+/* line 198, ../scss/main.scss */
+.player .mana-display .mana, .player .mana-display .red-mana, .player .mana-display .white-mana, .player .mana-display .blue-mana, .player .mana-display .green-mana, .player .mana-display .black-mana, .player .mana-display .generic-mana, .player .mana-display .total, .player .mana-display .total-mana, .player .mana-display .poision-display, .player .mana-display .poision {
+  float: left;
+  width: 31px;
+  height: 31px;
+  padding: 0 0 0 35px;
+  font-size: 28px;
+  background: url("../images/mana-sprite.png") no-repeat;
+}
+/* line 207, ../scss/main.scss */
+.player .mana-display .red-mana {
+  background-position: 0px -31px;
+}
+/* line 212, ../scss/main.scss */
+.player .mana-display .white-mana {
+  background-position: 0px -61px;
+}
+/* line 217, ../scss/main.scss */
+.player .mana-display .blue-mana {
+  background-position: 0px -91px;
+}
+/* line 222, ../scss/main.scss */
+.player .mana-display .green-mana {
+  background-position: 0px -121px;
+}
+/* line 231, ../scss/main.scss */
+.player .mana-display .generic-mana {
+  background-position: 0px -201px;
+}
+/* line 236, ../scss/main.scss */
+.player .mana-display .total {
+  font-size: 35px;
+  color: #333;
+  padding: 2px 0 0 0;
+  background: none;
+  font-weight: bold;
+}
+/* line 246, ../scss/main.scss */
+.player .mana-display .total-mana {
+  padding: 0 0 0 10px;
+  background: none;
+}
+/* line 253, ../scss/main.scss */
+.player .poision-display {
+  font-size: 35px;
+  color: green;
+  padding: 2px 0 0 0;
+  background: none;
+  font-weight: bold;
+}
+/* line 263, ../scss/main.scss */
+.player .poision {
+  color: green;
+  font-size: 28px;
+  padding: 0 0 0 10px;
+  background: none;
+}
+/* line 272, ../scss/main.scss */
+.player .life-controls {
+  float: right;
+  clear: right;
+}
+/* line 276, ../scss/main.scss */
+.player .life-controls button {
+  font-size: 32px;
+  width: 58px;
+  height: 58px;
+  -moz-border-radius: 27px;
+  -webkit-border-radius: 27px;
+  -o-border-radius: 27px;
+  -ms-border-radius: 27px;
+  -khtml-border-radius: 27px;
+  border-radius: 27px;
+  padding: 0.25em 0.5em;
+  background: white;
+  margin: 0 0 0 15px;
+}
+/* line 287, ../scss/main.scss */
+.player .poision-controls {
+  float: right;
+}
+/* line 290, ../scss/main.scss */
+.player .poision-controls button {
+  font-size: 32px;
+  width: 58px;
+  height: 58px;
+  margin: 0 0 0 15px;
+  -moz-border-radius: 27px;
+  -webkit-border-radius: 27px;
+  -o-border-radius: 27px;
+  -ms-border-radius: 27px;
+  -khtml-border-radius: 27px;
+  border-radius: 27px;
+  padding: 0.25em 0.5em;
+}
+/* line 300, ../scss/main.scss */
+.player .player-controls {
+  position: absolute;
+  bottom: 20px;
+}
+/* line 305, ../scss/main.scss */
+.player .tap-mana {
+  width: 100px;
+  height: 125px;
+  border: none;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  border-radius: 10px;
+}
+/* line 313, ../scss/main.scss */
+.player .mana-controls .group {
+  overflow: hidden;
+  float: left;
+  display: inline-block;
+  margin: 0 20px 0 0;
+}
+/* line 320, ../scss/main.scss */
+.player .mana-controls .tap-mana {
+  display: block;
+  border: solid 1px #333;
+}
+/* line 325, ../scss/main.scss */
+.player .mana-controls .decrement-mana, .player .mana-controls .increment-mana {
+  border: none;
+  width: 40px;
+  height: 40px;
+  margin: 5px 0 0 0;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  border: solid 1px #333;
+}
+/* line 334, ../scss/main.scss */
+.player .mana-controls .increment-mana {
+  float: right;
+}
+/* line 339, ../scss/main.scss */
+.player .mana-controls .reset-mana {
+  clear: both;
+  display: block;
+}
